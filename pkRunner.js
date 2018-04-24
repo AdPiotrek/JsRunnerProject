@@ -20,7 +20,7 @@ class Game {
         this.player.height = 96;
         this.player.speed  = 6;
         this.player.sheet  = new SpriteSheet('assets/images/runner.png', player.width, player.height);
-        player.anim   = new Animation(player.sheet, 4, 0, 15);
+        this.player.anim   = new Animation(player.sheet, 4, 0, 15);
     };
 
 
@@ -42,4 +42,11 @@ class SpriteSheet {
         this.image.src = path;
     };
 
+}
+
+class Animation {
+
+    constructor(spritesheet, frameSpeed, startFrame, endFrame){
+        
+    }
 }

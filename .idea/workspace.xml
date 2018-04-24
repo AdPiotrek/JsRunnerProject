@@ -36,16 +36,16 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="pkRunner.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="pkRunner.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/pkRunner.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="439">
-              <caret line="36" lean-forward="true" selection-start-line="36" selection-end-line="40" />
+            <state relative-caret-position="558">
+              <caret line="50" column="5" lean-forward="true" selection-start-line="50" selection-start-column="5" selection-end-line="50" selection-end-column="5" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="runner.png" pinned="false" current-in-tab="true">
+      <file leaf-file-name="runner.png" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/assets/images/runner.png">
           <provider selected="true" editor-type-id="images" />
         </entry>
@@ -212,12 +212,12 @@
       <option name="presentableId" value="Default" />
       <updated>1524567389037</updated>
       <workItem from="1524567390248" duration="6022000" />
-      <workItem from="1524573997405" duration="1684000" />
+      <workItem from="1524573997405" duration="4509000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="7706000" />
+    <option name="totallyTimeSpent" value="10531000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
@@ -291,13 +291,6 @@
     <entry file="file://$PROJECT_DIR$/assets/images/background.png">
       <provider selected="true" editor-type-id="images" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/pkRunnerStyles.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="4" lean-forward="true" selection-start-line="4" selection-end-line="4" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/index.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="153">
@@ -305,15 +298,22 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/pkRunner.js">
+    <entry file="file://$PROJECT_DIR$/assets/images/runner.png">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pkRunnerStyles.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="439">
-          <caret line="36" lean-forward="true" selection-start-line="36" selection-end-line="40" />
+        <state relative-caret-position="68">
+          <caret line="4" lean-forward="true" selection-start-line="4" selection-end-line="4" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/assets/images/runner.png">
-      <provider selected="true" editor-type-id="images" />
+    <entry file="file://$PROJECT_DIR$/pkRunner.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="558">
+          <caret line="50" column="5" lean-forward="true" selection-start-line="50" selection-start-column="5" selection-end-line="50" selection-end-column="5" />
+        </state>
+      </provider>
     </entry>
   </component>
 </project>
