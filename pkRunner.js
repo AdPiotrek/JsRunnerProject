@@ -16,7 +16,8 @@ class Game {
             this.anim();
         };
         this.spreadSheet = new SpriteSheet('assets/images/runner.png',8, 1);
-        this.playerAnim = new Animation(this.spreadSheet, this.ctx);
+        this.player = new Player();
+        this.player.anim =  new Animation(this.spreadSheet, this.ctx);
         this.bgAnim = new ScrollAnimation(this.background, this.ctx, 5);
     };
 
@@ -26,7 +27,8 @@ class Game {
             animFrame++;
             this.ctx.clearRect(0, 0, 400, 400);
             this.bgAnim.draw();
-            this.playerAnim.draw(animFrame);
+            this.player.update();
+            this.player.anim.draw(animFrame,this.player.x, this.player.y);
             requestAnimationFrame(animation);
         };
         animation();
@@ -58,7 +60,7 @@ class Animation {
         this.ctx = ctx;
     }
 
-    draw(animFrame) {
+    draw(animFrame,width,height) {
         const row = Math.floor(this.currentFrame / this.spritesheet.columns);
         const column = this.currentFrame % this.spritesheet.columns;
         this.ctx.drawImage(
@@ -67,7 +69,7 @@ class Animation {
             row * this.spritesheet.frameHeight,
             this.spritesheet.frameWidth,
             this.spritesheet.frameHeight,
-            40, 40,
+            width,height,
             this.spritesheet.frameWidth,
             this.spritesheet.frameHeight
         );
@@ -104,5 +106,108 @@ class ScrollAnimation {
     }
 }
 
+class Vectors {
+    constructor(x, y, dx, dy) {
+        // position
+        this.x = x || 0;
+        this.y = y || 0;
+        // direction
+        this.dx = dx || 0;
+        this.dy = dy || 0;
+    }
 
-new Game();
+    advance() {
+        this.x += this.dx;
+        this.y += this.dy;
+    }
+
+    minDist(vector) {
+        let minDist = Infinity;
+        var max = Math.max(Math.abs(this.dx), Math.abs(this.dy),
+            Math.abs(vec.dx), Math.abs(vec.dy));
+        var slice = 1 / max;
+        var x, y, distSquared;
+        // get the middle of each vector
+        var vec1 = {}, vec2 = {};
+        vec1.x = this.x + this.width / 2;
+        vec1.y = this.y + this.height / 2;
+        vec2.x = vec.x + vec.width / 2;
+        vec2.y = vec.y + vec.height / 2;
+        for (var percent = 0; percent < 1; percent += slice) {
+            x = (vec1.x + this.dx * percent) - (vec2.x + vec.dx * percent);
+            y = (vec1.y + this.dy * percent) - (vec2.y + vec.dy * percent);
+            distSquared = x * x + y * y;
+
+            minDist = Math.min(minDist, distSquared);
+        }
+
+        return Math.sqrt(minDist);
+
+    }
+}
+
+
+class Player extends Vectors{
+    constructor(){
+        super();
+        this.gravity = 1;
+        this.dy = 0;
+        this.jumpDy = -10;
+        this.isFalling = false;
+        this.isJumping = false;
+        this.jumpCounter = 0;
+    }
+
+    update() {
+
+        if (KEY_STATUS.space && this.dy === 0 && !this.isJumping) {
+            this.isJumping = true;
+            this.dy = this.jumpDy;
+            this.jumpCounter = 12;
+            console.log('spacja wcisnieta')
+        }
+
+        // jump higher if the space bar is continually pressed
+        if (KEY_STATUS.space && this.jumpCounter) {
+            this.dy = this.jumpDy;
+            console.log('spacja trzymana')
+        }
+
+        this.jumpCounter = Math.max(this.jumpCounter-1, 0);
+
+        console.log(this.jumpCounter);
+        this.advance();
+
+        // add gravity
+        if (this.isFalling || this.isJumping) {
+            this.dy += this.gravity;
+        }
+    }
+
+}
+
+
+var KEY_CODES = {
+    32: 'space'
+};
+var KEY_STATUS = {};
+for (var code in KEY_CODES) {
+    if (KEY_CODES.hasOwnProperty(code)) {
+        KEY_STATUS[KEY_CODES[code]] = false;
+    }
+}
+document.onkeydown = function(e) {
+    var keyCode = (e.keyCode) ? e.keyCode : e.charCode;
+    if (KEY_CODES[keyCode]) {
+        e.preventDefault();
+        KEY_STATUS[KEY_CODES[keyCode]] = true;
+    }
+};
+document.onkeyup = function(e) {
+    var keyCode = (e.keyCode) ? e.keyCode : e.charCode;
+    if (KEY_CODES[keyCode]) {
+        e.preventDefault();
+        KEY_STATUS[KEY_CODES[keyCode]] = false;
+    }
+};
+new Game ();
