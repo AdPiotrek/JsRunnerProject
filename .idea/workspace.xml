@@ -32,8 +32,8 @@
       <file leaf-file-name="pkRunner.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/pkRunner.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="312">
-              <caret line="71" column="25" selection-start-line="71" selection-start-column="25" selection-end-line="71" selection-end-column="25" />
+            <state relative-caret-position="303">
+              <caret line="188" column="89" selection-start-line="188" selection-start-column="89" selection-end-line="188" selection-end-column="89" />
             </state>
           </provider>
         </entry>
@@ -220,7 +220,7 @@
       <workItem from="1524573997405" duration="4509000" />
       <workItem from="1524732444366" duration="197000" />
       <workItem from="1524733288754" duration="12000" />
-      <workItem from="1525433462854" duration="5208000" />
+      <workItem from="1525433462854" duration="5708000" />
     </task>
     <task id="LOCAL-00001" summary="Simply runner added.">
       <created>1524585187294</created>
@@ -233,7 +233,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="22499000" />
+    <option name="totallyTimeSpent" value="22999000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
@@ -435,8 +435,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/pkRunner.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="312">
-          <caret line="71" column="25" selection-start-line="71" selection-start-column="25" selection-end-line="71" selection-end-column="25" />
+        <state relative-caret-position="303">
+          <caret line="188" column="89" selection-start-line="188" selection-start-column="89" selection-end-line="188" selection-end-column="89" />
         </state>
       </provider>
     </entry>

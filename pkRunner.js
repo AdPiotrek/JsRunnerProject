@@ -107,6 +107,9 @@ class ScrollAnimation {
 }
 
 class Vectors {
+
+    //klasa bazowa dla wszystkich obiektów ( dla nas chyba tylko playera )
+    //x,y normalne pozycje, dx,dy pozycje w nastepnej klatce
     constructor(x, y, dx, dy) {
         // position
         this.x = x || 0;
@@ -158,8 +161,10 @@ class Player extends Vectors{
         this.jumpCounter = 0;
     }
 
-    update() {
+    //dziedzicząca z vektor
 
+    update() {
+        // sprawdzamy czy jest spacja , jesli tak to ustawiamy licznik na 12 i y w nastepnej klatce y się podnosi
         if (KEY_STATUS.space && this.dy === 0 && !this.isJumping) {
             this.isJumping = true;
             this.dy = this.jumpDy;
@@ -167,24 +172,32 @@ class Player extends Vectors{
             console.log('spacja wcisnieta')
         }
 
-        // jump higher if the space bar is continually pressed
+        // jesli jest wcisnieta to ustaw dy znów na tyle ile sie powinien podniesc
         if (KEY_STATUS.space && this.jumpCounter) {
             this.dy = this.jumpDy;
             console.log('spacja trzymana')
         }
 
+        //z kazda klatka sobie odejmujemy z jumpCountera , zawsze bedzie min 0
         this.jumpCounter = Math.max(this.jumpCounter-1, 0);
 
         console.log(this.jumpCounter);
+
+        //przypisujemy wartosci z nastepnej klatki do obiektu zeby je narysowac
         this.advance();
 
-        // add gravity
+        // sprawdzanie czy powinien spadac, jesli tak no to robimy z wysokoscia jak wyzej
         if (this.isFalling || this.isJumping) {
             this.dy += this.gravity;
         }
     }
 
 }
+
+
+
+
+// skopiowałem żeby działało xD
 
 
 var KEY_CODES = {
