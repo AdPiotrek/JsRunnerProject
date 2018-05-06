@@ -4,7 +4,6 @@ const platformSpacer = 100;
 let platformHeight = 1, platformLength = 15, gapLength;
 
 
-
 class Game {
 
     constructor() {
@@ -32,10 +31,12 @@ class Game {
         this.bgAnim = new ScrollAnimation(this.background, this.ctx, 5);
     };
 
-    initGround(){
-        for(let i = 0; i < 30 ; i++){
-            this.ground[i] = new Block(i * platformWidth, platformBase - platformHeight * platformSpacer,'',this.player,this.ctx)
+    initGround() {
+        for (let i = 0; i < 9999; i++) {
+            this.ground[i] = new Block(i * platformWidth, platformBase - platformHeight * platformSpacer, '', this.player, this.ctx)
+
         }
+        this.ground[30] = new Block(this.ground[29].x + 200, platformBase - platformHeight * platformSpacer - 100, '', this.player, this.ctx)
         console.log(this.ground)
 
     }
@@ -46,15 +47,10 @@ class Game {
         for (let i = 0; i < this.ground.length; i++) {
             this.ground[i].update();
             this.ground[i].draw();
-            // stop the player from falling when landing on a platform
-            let angle;
 
-            if (this.player.minDist(this.ground[i]) <= this.player.height/2 + platformWidth/2 &&
-                (angle = Math.atan2(this.player.y - this.ground[i].y, this.player.x - this.ground[i].x) * 180/Math.PI) > -130 &&
-                angle < -50) {
+            if (this.player.shouldFalling(this.ground[i])) {
                 this.player.isJumping = false;
                 this.player.isFalling = false;
-                this.player.y = this.ground[i].y - platformSpacer;
                 this.player.dy = 0;
             }
         }
@@ -69,7 +65,7 @@ class Game {
         let animFrame = 0;
         const animation = () => {
             animFrame++;
-            this.ctx.clearRect(0,0,this.canvas.width, this.canvas.height);
+            this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
             this.bgAnim.draw();
             this.player.update();
             this.player.anim.draw(animFrame, this.player.x, this.player.y);
@@ -80,7 +76,6 @@ class Game {
         animation();
     };
 }
-
 
 
 class SpriteSheet {
@@ -94,8 +89,6 @@ class SpriteSheet {
 
 
         this.image.onload = () => {
-            //jesli nie ma zdefiniowanego frameWidth to przypisz to rownanie co poprawej
-            // ogolnie zobacz sobie jak dziala || na necie
             this.frameHeight = frameWidth || this.image.naturalHeight / this.rows;
             this.frameWidth = frameHeight || this.image.naturalWidth / this.columns;
         };
@@ -113,15 +106,9 @@ class ScrollAnimation {
 
 
     draw() {
-        //Z każdą klatką przesuwamy o podany parametr speed
         this.x -= this.speed;
-        //Rysujemy obrazek
         this.ctx.drawImage(this.image, this.x, 0);
-        //Jednoczesnie od razu za nim rysujemy drugi obrazek zeby bylo plynne przejscie
-        //jak widzisz drugi parametr this.x + this.image.width to po to zeby byl po prawej
         this.ctx.drawImage(this.image, this.x + this.image.width, 0);
-        //Sprawdzamy czy x jest wieksze niz szeroko obrazka ( dlatego takie dziwne bo jak widzisz  w pierwszej linijce x jest
-        //zawsze ujemne
         if (this.x + this.image.width <= 0) {
             this.x = 0;
         }
@@ -147,7 +134,7 @@ class Animation {
             this.spritesheet.frameWidth,
             this.spritesheet.frameHeight,
             width, height,
-            100,100
+            100, 100
         );
         if (animFrame % 6 === 0) {
             this.currentFrame++;
@@ -158,9 +145,6 @@ class Animation {
 }
 
 class Vectors {
-
-    //klasa bazowa dla wszystkich obiektów ( dla nas chyba tylko playera )
-    //x,y normalne pozycje, dx,dy pozycje w nastepnej klatce
     constructor(x, y, dx, dy) {
         // position
         this.x = x || 0;
@@ -175,29 +159,25 @@ class Vectors {
         this.y += this.dy;
     }
 
-    minDist(vector) {
-        let minDist = Infinity;
-        let max = Math.max(Math.abs(this.dx), Math.abs(this.dy),
-            Math.abs(vector.dx), Math.abs(vector.dy));
-        let slice = 1 / max;
-        let x, y, distSquared;
-        // get the middle of each vector
-        let vec1 = {}, vec2 = {};
-        vec1.x = this.x + this.width / 2;
-        vec1.y = this.y + this.height / 2;
-        vec2.x = vector.x + vector.width / 2;
-        vec2.y = vector.y + vector.height / 2;
-        for (var percent = 0; percent < 1; percent += slice) {
-            x = (vec1.x + this.dx * percent) - (vec2.x + vector.dx * percent);
-            y = (vec1.y + this.dy * percent) - (vec2.y + vector.dy * percent);
-            distSquared = x * x + y * y;
 
-            minDist = Math.min(minDist, distSquared);
-        }
+    shouldFalling(block) {
+        const playerStartX = this.x;
+        const playerBottom = this.y + this.height;
+        const playerEndX = playerStartX + this.width;
+        const blockStartX = block.x;
+        const blockEndX = blockStartX + block.width;
+        const blockTop = block.y;
 
-        return Math.sqrt(minDist);
+        const properWidth  = (playerStartX <= blockStartX && playerEndX >= blockStartX && playerEndX <= blockEndX ||
+            playerStartX >= blockStartX && playerEndX <= blockEndX ||
+            playerStartX <= blockEndX && playerEndX >= blockEndX);
+        const isAbove =  ( playerBottom <= blockTop && !(playerBottom <= blockTop -10));
+
+
+        return properWidth && isAbove;
 
     }
+
 }
 
 
@@ -211,23 +191,24 @@ class Player extends Vectors {
         this.isJumping = false;
         this.jumpCounter = 0;
         this.speed = 6;
-        this.height = 60;
-        this.width = 60;
+        this.height = 100;
+        this.width = 100;
     }
 
     //dziedzicząca z vektor
 
     update() {
-        // sprawdzamy czy jest spacja , jesli tak to ustawiamy licznik na 12 i y w nastepnej klatce y się podnosi
         if (KEY_STATUS.space && this.dy === 0 && !this.isJumping) {
             this.isJumping = true;
             this.dy = this.jumpDy;
             this.jumpCounter = 12;
+            console.log("Ustawiam na 12")
         }
 
         // jesli jest wcisnieta to ustaw dy znów na tyle ile sie powinien podniesc
         if (KEY_STATUS.space && this.jumpCounter) {
             this.dy = this.jumpDy;
+            console.log(this.jumpCounter);
         }
 
         //z kazda klatka sobie odejmujemy z jumpCountera , zawsze bedzie min 0
@@ -239,7 +220,7 @@ class Player extends Vectors {
 
         // sprawdzanie czy powinien spadac, jesli tak no to robimy z wysokoscia jak wyzej
         if (this.isFalling || this.isJumping) {
-            this.dy += this.gravity;
+            this.dy = Math.min(this.dy +1 , 10);
         }
     }
 
@@ -252,8 +233,7 @@ class Player extends Vectors {
 
 class Block extends Vectors {
     constructor(x, y, type, relativePlayer, ctx) {
-        super(x,y);
-        console.log(this.x);
+        super(x, y);
         this.width = platformWidth;
         this.height = platformHeight;
         this.player = relativePlayer;
@@ -261,23 +241,18 @@ class Block extends Vectors {
         this.newImg();
     }
 
-    newImg (){
-        this.image =  new Image();
+    newImg() {
+        this.image = new Image();
         this.image.src = 'assets/images/block.png'
     }
 
     update() {
-        console.log(this.player.speed);
         this.dx = -this.player.speed;
         this.advance();
     }
 
     draw() {
-        this.ctx.save();
-        this.ctx.translate(0.5, 0.5);
-        // console.warn(this.x,this.y);
-        this.ctx.drawImage(this.image, this.x, this.y,100,100);
-        this.ctx.restore();
+        this.ctx.drawImage(this.image, this.x, this.y, 100, 100);
     }
 
 
