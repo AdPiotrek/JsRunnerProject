@@ -6,6 +6,8 @@ class Game {
 
     constructor() {
         this.canvas = document.createElement('canvas');
+        this.sound = new Audio('./assets/sound/background.mp3');
+        this.sound.play();
         this.ctx = this.canvas.getContext('2d');
         this.canvas.width = document.documentElement.clientWidth;
         this.canvas.height = document.documentElement.clientHeight - 5;
@@ -317,6 +319,26 @@ class Block extends Vectors {
 
     draw() {
         this.ctx.drawImage(this.image, this.x, this.y, 100, 100);
+    }
+
+
+}
+
+class Audio{
+    constructor(src) {
+        this.sound = document.createElement("audio");
+        this.sound.src = src;
+        this.sound.setAttribute("preload", "auto");
+        this.sound.setAttribute("controls", "none");
+        this.sound.style.display = "none";
+    }
+
+    play(){
+        this.sound.play();
+    }
+
+    stop(){
+        this.sound.pause();
     }
 
 
