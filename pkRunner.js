@@ -1,8 +1,6 @@
 const platformWidth = 100;
 let platformBase;
 const platformSpacer = 100;
-let platformHeight = 1, platformLength = 15, gapLength;
-
 
 class Game {
 
@@ -14,30 +12,33 @@ class Game {
         document.body.appendChild(this.canvas);
         platformBase = this.canvas.height - platformWidth;
         this.ground = [];
-        this.init();
-    }
-
-    init() {
+        this.gapeLength = 0;
+        this.platformLength = 0;
         this.background = new Image();
         this.background.src = './assets/images/background.png';
         this.background.onload = () => {
             this.ctx.drawImage(this.background, 0, 0);
             this.anim();
         };
+        this.init();
+
+    }
+
+    init() {
         this.spreadSheet = new SpriteSheet('assets/images/runner.png', 8, 1);
         this.player = new Player();
-        this.initGround();
         this.player.anim = new Animation(this.spreadSheet, this.ctx);
         this.bgAnim = new ScrollAnimation(this.background, this.ctx, 5);
+        this.isGameRunning = true;
+
     };
 
     initGround() {
-        for (let i = 0; i < 9999; i++) {
-            this.ground[i] = new Block(i * platformWidth, platformBase - platformHeight * platformSpacer, '', this.player, this.ctx)
-
+        for (let i = 0; i < 6 + this.platformLength; i++) {
+            this.ground.push(
+                new Block(i * platformWidth, platformBase - platformSpacer, this.player, this.ctx)
+            )
         }
-        this.ground[30] = new Block(this.ground[29].x + 200, platformBase - platformHeight * platformSpacer - 100, '', this.player, this.ctx)
-        console.log(this.ground)
 
     }
 
@@ -64,17 +65,63 @@ class Game {
     anim() {
         let animFrame = 0;
         const animation = () => {
-            animFrame++;
-            this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-            this.bgAnim.draw();
-            this.player.update();
-            this.player.anim.draw(animFrame, this.player.x, this.player.y);
-            this.updateGround();
+            if (this.isGameRunning) {
+                animFrame++;
+                this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+                this.bgAnim.draw();
+                this.player.update();
+                this.player.anim.draw(animFrame, this.player.x, this.player.y);
+                this.updateGround();
+                if (this.ground.length < 15000) {
+                    this.spawnBlock();
+                }
+                this.gameOver();
 
+            }
             requestAnimationFrame(animation);
+
         };
         animation();
     };
+
+    spawnBlock() {
+        const level = Math.floor(Math.random() * 3);
+        this.platformLength = Math.floor(Math.random() * 4) + 2;
+        const arrLeng = this.ground.length + 1;
+        this.gapeLength = Math.floor(Math.random() * 2) + 2;
+        for (let i = arrLeng; i < arrLeng + this.platformLength; i++) {
+            this.ground.push(
+                new Block((this.gapeLength + i) * platformWidth, platformBase - platformSpacer * level, '', this.player, this.ctx)
+            )
+        }
+
+
+        for (let i = 0; i < this.gapeLength; i++) {
+            this.ground.push(
+                new Block(-1000, 1000, '', this.player, this.ctx)
+            )
+        }
+
+    }
+
+    gameOver() {
+        if (this.player.y > this.canvas.height) {
+
+            this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+            this.isGameRunning = false;
+
+
+            const btn = document.getElementById('gameOverButton');
+            btn.style.visibility = 'visible';
+
+            btn.addEventListener('click', () => {
+                btn.style.visibility = 'hidden';
+                this.init();
+            })
+
+
+        }
+    }
 }
 
 
@@ -168,10 +215,10 @@ class Vectors {
         const blockEndX = blockStartX + block.width;
         const blockTop = block.y;
 
-        const properWidth  = (playerStartX <= blockStartX && playerEndX >= blockStartX && playerEndX <= blockEndX ||
+        const properWidth = (playerStartX <= blockStartX && playerEndX >= blockStartX && playerEndX <= blockEndX ||
             playerStartX >= blockStartX && playerEndX <= blockEndX ||
             playerStartX <= blockEndX && playerEndX >= blockEndX);
-        const isAbove =  ( playerBottom <= blockTop && !(playerBottom <= blockTop -10));
+        const isAbove = (playerBottom <= blockTop && !(playerBottom <= blockTop - 10));
 
 
         return properWidth && isAbove;
@@ -186,11 +233,11 @@ class Player extends Vectors {
         super(64, 250);
         this.gravity = 1;
         this.dy = 0;
-        this.jumpDy = -10;
+        this.jumpDy = -15;
         this.isFalling = false;
         this.isJumping = false;
         this.jumpCounter = 0;
-        this.speed = 6;
+        this.speed = 10;
         this.height = 100;
         this.width = 100;
     }
@@ -202,25 +249,17 @@ class Player extends Vectors {
             this.isJumping = true;
             this.dy = this.jumpDy;
             this.jumpCounter = 12;
-            console.log("Ustawiam na 12")
         }
 
-        // jesli jest wcisnieta to ustaw dy znów na tyle ile sie powinien podniesc
         if (KEY_STATUS.space && this.jumpCounter) {
             this.dy = this.jumpDy;
-            console.log(this.jumpCounter);
         }
 
-        //z kazda klatka sobie odejmujemy z jumpCountera , zawsze bedzie min 0
         this.jumpCounter = Math.max(this.jumpCounter - 1, 0);
 
-
-        //przypisujemy wartosci z nastepnej klatki do obiektu zeby je narysowac
         this.advance();
-
-        // sprawdzanie czy powinien spadac, jesli tak no to robimy z wysokoscia jak wyzej
         if (this.isFalling || this.isJumping) {
-            this.dy = Math.min(this.dy +1 , 10);
+            this.dy = Math.min(this.dy + 1, 10);
         }
     }
 
@@ -235,7 +274,7 @@ class Block extends Vectors {
     constructor(x, y, type, relativePlayer, ctx) {
         super(x, y);
         this.width = platformWidth;
-        this.height = platformHeight;
+        this.height = platformSpacer;
         this.player = relativePlayer;
         this.ctx = ctx;
         this.newImg();
@@ -285,7 +324,7 @@ document.onkeyup = function (e) {
         KEY_STATUS[KEY_CODES[keyCode]] = false;
     }
 };
-new Game();
+ACTIVE_GAME = new Game();
 
 //block width = 64,2
 //block height = 64.5

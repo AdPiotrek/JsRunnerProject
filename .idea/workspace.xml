@@ -6,11 +6,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7d7d878c-6926-4fc4-821c-495bfff24d38" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/Scripts/Animation.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Scripts/ScrollAnimation.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Scripts/Spritesheet.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pkRunner.js" beforeDir="false" afterPath="$PROJECT_DIR$/pkRunner.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkRunnerStyles.css" beforeDir="false" afterPath="$PROJECT_DIR$/pkRunnerStyles.css" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -23,29 +22,32 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="FileEditorManager">
-    <leaf>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file leaf-file-name="pkRunner.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/pkRunner.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="234">
-              <caret line="58" selection-start-line="58" selection-end-line="58" />
+            <state relative-caret-position="49">
+              <caret line="44" column="20" lean-forward="true" selection-start-line="44" selection-start-column="20" selection-end-line="44" selection-end-column="20" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="runner.png" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/assets/images/runner.png">
-          <provider selected="true" editor-type-id="images" />
+      <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/index.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state>
+              <caret column="15" selection-start-column="15" selection-end-column="15" />
+            </state>
+          </provider>
         </entry>
       </file>
-      <file leaf-file-name="blocks.png" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/assets/images/blocks.png">
-          <provider selected="true" editor-type-id="images" />
-        </entry>
-      </file>
-      <file leaf-file-name="block.png" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/assets/images/block.png">
-          <provider selected="true" editor-type-id="images" />
+      <file leaf-file-name="pkRunnerStyles.css" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/pkRunnerStyles.css">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="153">
+              <caret line="9" column="1" lean-forward="true" selection-start-line="9" selection-start-column="1" selection-end-line="9" selection-end-column="1" />
+            </state>
+          </provider>
         </entry>
       </file>
     </leaf>
@@ -61,30 +63,36 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>sky</find>
-      <find>background</find>
-      <find>animate</find>
-      <find>downloadAll</find>
-      <find>assetLoader.</find>
-      <find>assetLoaderz</find>
-      <find>frameSpeed</find>
-      <find>0.1</find>
-      <find>spriteSheet</find>
-      <find>§</find>
-      <find>player</find>
-      <find>.</find>
-      <find>Blocks</find>
-      <find>updateGround</find>
-      <find>vec</find>
-      <find>[i].update</find>
-      <find>console.log</find>
-      <find>this.ground[i].x</find>
-      <find>Block</find>
-      <find>Player</find>
-      <find>anim</find>
-      <find>playe</find>
+      <find>this.isFalling</find>
+      <find>isFalling</find>
+      <find>this.dx</find>
+      <find>minDist</find>
+      <find>Vector</find>
       <find>drawImage</find>
-      <find>-50</find>
+      <find>Player</find>
+      <find>dy</find>
+      <find>shouldFalling</find>
+      <find>updateGround</find>
+      <find>update()</find>
+      <find>this.gravity</find>
+      <find>up</find>
+      <find>advance()</find>
+      <find>platformSpacer</find>
+      <find>platformWidth</find>
+      <find>999</find>
+      <find>platformHeight</find>
+      <find>la</find>
+      <find>Blocks</find>
+      <find>Block</find>
+      <find>animate</find>
+      <find>spawnBlock</find>
+      <find>jumpDy</find>
+      <find>console.log</find>
+      <find>this.ground.push</find>
+      <find>new Game</find>
+      <find>gameOver</find>
+      <find>this.gameOver</find>
+      <find>initGr</find>
     </findStrings>
     <replaceStrings>
       <replace />
@@ -96,11 +104,11 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/pkRunnerStyles.css" />
         <option value="$PROJECT_DIR$/Scripts/Spritesheet.js" />
         <option value="$PROJECT_DIR$/Scripts/Animation.js" />
         <option value="$PROJECT_DIR$/Scripts/ScrollAnimation.js" />
         <option value="$PROJECT_DIR$/index.html" />
+        <option value="$PROJECT_DIR$/pkRunnerStyles.css" />
         <option value="$PROJECT_DIR$/pkRunner.js" />
       </list>
     </option>
@@ -124,6 +132,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -151,14 +160,13 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
       <pane id="AndroidView" />
       <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
-    <property name="SearchEverywhereHistoryKey" value="Block&#9;null&#9;null&#10;inde&#9;FILE&#9;file:///Users/piotrek/Development/Uczelnia/CanvasGameBargielAdamus/index.html" />
+    <property name="SearchEverywhereHistoryKey" value="inde&#9;FILE&#9;file:///Users/piotrek/Development/Uczelnia/CanvasGameBargielAdamus/index.html&#10;pk&#9;FILE&#9;file:///Users/piotrek/Development/Uczelnia/CanvasGameBargielAdamus/pkRunner.js&#10;updateG&#9;null&#9;null&#10;should&#9;null&#9;null&#10;player&#9;null&#9;null&#10;updateGro&#9;null&#9;null&#10;shouldF&#9;null&#9;null&#10;updateGr&#9;null&#9;null&#10;index.&#9;FILE&#9;file:///Users/piotrek/Development/Uczelnia/CanvasGameBargielAdamus/index.html&#10;Block&#9;null&#9;null" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="ignore_missing_gitignore" value="true" />
@@ -251,6 +259,8 @@
       <workItem from="1524733288754" duration="12000" />
       <workItem from="1525433462854" duration="13164000" />
       <workItem from="1525464551705" duration="4675000" />
+      <workItem from="1525619094935" duration="20674000" />
+      <workItem from="1525675590701" duration="9000" />
     </task>
     <task id="LOCAL-00001" summary="Simply runner added.">
       <created>1524585187294</created>
@@ -259,55 +269,42 @@
       <option name="project" value="LOCAL" />
       <updated>1524585187294</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Simply runner added.">
+      <created>1525634419153</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1525634419153</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="35130000" />
+    <option name="totallyTimeSpent" value="55813000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="0" width="1440" height="900" extended-state="0" />
+    <frame x="0" y="0" width="1440" height="900" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.24947146" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.2501762" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" />
+      <window_info anchor="bottom" id="Event Log" order="11" side_tool="true" />
+      <window_info anchor="bottom" id="Version Control" order="9" visible="true" weight="0.32880098" />
       <window_info anchor="bottom" id="Run" order="2" />
-      <window_info active="true" anchor="bottom" id="Version Control" order="7" visible="true" weight="0.32880098" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info anchor="bottom" id="Terminal" order="7" weight="0.32880098" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info anchor="bottom" id="Terminal" order="8" weight="0.32880098" />
       <window_info id="Favorites" order="2" side_tool="true" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="right" id="Commander" order="0" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
-      <window_info anchor="bottom" id="Messages" order="7" />
+      <window_info anchor="bottom" id="Messages" order="10" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Find" order="1" />
     </layout>
-    <layout-to-restore>
-      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
-      <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.24947146" />
-      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info anchor="right" id="Commander" order="0" weight="0.4" />
-      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
-      <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="bottom" id="Run" order="2" />
-      <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
-      <window_info anchor="bottom" id="Terminal" order="8" visible="true" weight="0.32880098" />
-      <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
-      <window_info anchor="bottom" id="Version Control" order="10" />
-      <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Messages" order="11" />
-      <window_info id="Favorites" order="2" side_tool="true" />
-    </layout-to-restore>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
@@ -325,6 +322,34 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/pkRunner.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="459">
+          <caret line="27" selection-start-line="27" selection-end-line="27" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="15" lean-forward="true" selection-start-column="15" selection-end-column="15" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pkRunnerStyles.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="9" column="1" lean-forward="true" selection-start-line="9" selection-start-column="1" selection-end-line="9" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pkRunner.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="986">
+          <caret line="58" selection-start-line="58" selection-end-line="58" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/index.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="85">
@@ -458,34 +483,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/pkRunnerStyles.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="4" selection-start-line="4" selection-end-line="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external/lib.dom.d.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="3016" column="4" selection-start-line="3016" selection-start-column="4" selection-end-line="3016" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/assets/blocks.png">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
     <entry file="file://$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external/lib.es5.d.ts">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="132">
           <caret line="25" column="14" selection-start-line="25" selection-start-column="14" selection-end-line="25" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="5" column="54" lean-forward="true" selection-start-line="5" selection-start-column="54" selection-end-line="5" selection-end-column="54" />
         </state>
       </provider>
     </entry>
@@ -496,19 +497,31 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/assets/images/blocks.png">
-      <provider selected="true" editor-type-id="images" />
+    <entry file="file://$PROJECT_DIR$/pkRunnerStyles.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="9" column="1" lean-forward="true" selection-start-line="9" selection-start-column="1" selection-end-line="9" selection-end-column="1" />
+        </state>
+      </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/assets/images/block.png">
-      <provider selected="true" editor-type-id="images" />
+    <entry file="file://$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external/lib.dom.d.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="15892" column="17" selection-start-line="15892" selection-start-column="17" selection-end-line="15892" selection-end-column="17" />
+        </state>
+      </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/assets/images/runner.png">
-      <provider selected="true" editor-type-id="images" />
+    <entry file="file://$PROJECT_DIR$/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="15" selection-start-column="15" selection-end-column="15" />
+        </state>
+      </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/pkRunner.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="234">
-          <caret line="58" selection-start-line="58" selection-end-line="58" />
+        <state relative-caret-position="49">
+          <caret line="44" column="20" lean-forward="true" selection-start-line="44" selection-start-column="20" selection-end-line="44" selection-end-column="20" />
         </state>
       </provider>
     </entry>

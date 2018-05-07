@@ -2,3 +2,9 @@ body {
     background-color: black;
     margin: 0;
 }
+
+button {
+    position: fixed;
+    left: 50%;
+    top: 50%;
+}
