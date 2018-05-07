@@ -32,7 +32,9 @@ class Game {
         this.ground = [];
         this.hearths = [];
         this.frame = 0;
-        if(this.lifes === -1) {
+        this.zombies = [];
+
+        if (this.lifes === -1) {
             this.points = 0;
             this.lifes = 0;
         }
@@ -47,7 +49,7 @@ class Game {
     initGround() {
         for (let i = 0; i < 6 + this.platformLength; i++) {
             this.ground.push(
-                new Block(i * platformWidth, platformBase - platformSpacer,'', this.player, this.ctx)
+                new Block(i * platformWidth, platformBase - platformSpacer, '', this.player, this.ctx)
             )
         }
 
@@ -72,6 +74,11 @@ class Game {
             this.hearths[i].draw();
         }
 
+        for(let i = 0; i< this.zombies.length; i++){
+            this.zombies[i].update();
+            this.zombies[i].draw();
+        }
+
         // remove ground that have gone off screen
         if (this.ground[0] && this.ground[0].x < -platformWidth) {
             this.ground.splice(0, 1);
@@ -83,7 +90,7 @@ class Game {
         const animation = () => {
             if (this.isGameRunning) {
                 this.frame++;
-                if(this.frame % 50 === 0){
+                if (this.frame % 50 === 0) {
                     this.points++;
                     this.frame = 0;
                 }
@@ -96,6 +103,7 @@ class Game {
                 this.player.anim.draw(animFrame, this.player.x, this.player.y);
                 this.updateGround();
                 this.lifes = this.player.checkCollisionWithHearth(this.hearths) === true ? this.lifes = this.lifes + 1 : this.lifes;
+                this.player.checkCollisionWithEnemies(this.zombies) ? this.gameOver(true) : null;
                 if (this.ground.length < 5000) {
                     this.spawnBlock();
                 }
@@ -114,15 +122,24 @@ class Game {
         const arrLeng = this.ground.length + 1;
         this.gapeLength = Math.floor(Math.random() * 2 + 1) + 2;
         let hearthAdded = false;
+        let zombieAdded = false;
         for (let i = arrLeng; i < arrLeng + this.platformLength; i++) {
             const hearthRandom = Math.floor(Math.random() * 100);
             this.ground.push(
                 new Block((this.gapeLength + i) * platformWidth, platformBase - platformSpacer * level, '', this.player, this.ctx)
             );
-            if(hearthRandom %  60 === 0 && !hearthAdded) {
+            if (hearthRandom % 60 === 0 && !hearthAdded) {
                 hearthAdded = true;
                 this.hearths.push(new Hearth((this.gapeLength + i) * platformWidth + 32, platformBase - platformSpacer * (level + 1) + 25, '', this.player, this.ctx))
             }
+
+            if (hearthRandom % 10 === 0 && !hearthAdded  &&  !zombieAdded && i!==arrLeng) {
+                console.log('zombieSpawned');
+                zombieAdded = true;
+                this.zombies.push(new Zombie((this.gapeLength + i) * platformWidth + 32, platformBase - platformSpacer * (level + 1) + 25, '', this.player, this.ctx))
+            }
+
+
         }
 
 
@@ -134,10 +151,10 @@ class Game {
 
     }
 
-    gameOver() {
-        if (this.player.y > this.canvas.height) {
+    gameOver(bool) {
+        if (this.player.y > this.canvas.height || bool ===true) {
             this.lifes--;
-            if(this.lifes >= 0 ){
+            if (this.lifes >= 0) {
                 return this.init();
             }
             this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
@@ -168,16 +185,16 @@ class Game {
         }
     }
 
-    drawPoints(){
-        const score= document.getElementById('score');
+    drawPoints() {
+        const score = document.getElementById('score');
         score.style.left = 0 + "px";
         score.style.top = 0 + "px";
         score.style.color = 'Red';
         score.innerHTML = "Actual score: " + this.points.toString();
     }
 
-    drawLifes(){
-        const score= document.getElementById('lifes');
+    drawLifes() {
+        const score = document.getElementById('lifes');
         score.style.left = 400 + "px";
         score.style.top = 0 + "px";
         score.style.color = 'Red';
@@ -324,21 +341,40 @@ class Player extends Vectors {
         }
     }
 
-    checkCollisionWithHearth(hearths){
-        const playerLeft= this.x;
+    checkCollisionWithHearth(hearths) {
+        const playerLeft = this.x;
         const playerRight = this.x + this.width;
         const playerTop = this.y;
         const playerBottom = this.y + this.height;
-        for(let i=0 ; i < hearths.length ; i++){
+        for (let i = 0; i < hearths.length; i++) {
             const hearthLeft = hearths[i].x;
             const hearthRight = hearths[i].x + hearths[i].width;
             const hearthTop = hearths[i].y;
             const hearthBottom = hearths[i].y + hearths[i].height;
-            if(!(hearthLeft > playerRight || hearthRight < playerLeft ||
-                hearthTop > playerBottom ||  hearthBottom < playerTop)){
+            if (!(hearthLeft > playerRight || hearthRight < playerLeft ||
+                hearthTop > playerBottom || hearthBottom < playerTop)) {
                 this.sound = new Audio('./assets/sound/coin.mp3');
                 this.sound.play();
-                hearths.splice(i,1);
+                hearths.splice(i, 1);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    checkCollisionWithEnemies(hearths) {
+        const playerLeft = this.x;
+        const playerRight = this.x + this.width;
+        const playerTop = this.y;
+        const playerBottom = this.y + this.height;
+        for (let i = 0; i < hearths.length; i++) {
+            const hearthLeft = hearths[i].x;
+            const hearthRight = hearths[i].x + hearths[i].width;
+            const hearthTop = hearths[i].y;
+            const hearthBottom = hearths[i].y + hearths[i].height;
+            if (!(hearthLeft > playerRight || hearthRight < playerLeft ||
+                hearthTop > playerBottom || hearthBottom < playerTop)) {
+                console.log('zombie');
                 return true;
             }
         }
@@ -400,13 +436,38 @@ class Hearth extends Vectors {
     }
 
     draw() {
-        this.ctx.drawImage(this.image, this.x, this.y, 40,40);
+        this.ctx.drawImage(this.image, this.x, this.y, 40, 40);
     }
 
 
 }
 
-class Audio{
+class Zombie extends Vectors {
+    constructor(x, y, type, relativePlayer, ctx) {
+        super(x, y);
+        this.width = 40;
+        this.height = 40;
+        this.player = relativePlayer;
+        this.ctx = ctx;
+        this.newImg();
+    }
+
+    newImg() {
+        this.image = new Image();
+        this.image.src = 'assets/images/zombie.png'
+    }
+
+    update() {
+        this.dx = -this.player.speed;
+        this.advance();
+    }
+
+    draw() {
+        this.ctx.drawImage(this.image, this.x, this.y, 60, 60);
+    }
+}
+
+class Audio {
     constructor(src) {
         this.sound = document.createElement("audio");
         this.sound.src = src;
@@ -415,11 +476,11 @@ class Audio{
         this.sound.style.display = "none";
     }
 
-    play(){
+    play() {
         this.sound.play();
     }
 
-    stop(){
+    stop() {
         this.sound.pause();
     }
 
