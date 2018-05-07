@@ -8,3 +8,10 @@ button {
     left: 50%;
     top: 50%;
 }
+
+text {
+    font-size: 50px;
+    position: fixed;
+    left: 46%;
+    top: 40%;
+}

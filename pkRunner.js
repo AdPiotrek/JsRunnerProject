@@ -12,6 +12,8 @@ class Game {
         document.body.appendChild(this.canvas);
         platformBase = this.canvas.height - platformWidth;
         this.ground = [];
+        this.frame = 0;
+        this.points = 0;
         this.gapeLength = 0;
         this.platformLength = 0;
         this.background = new Image();
@@ -25,6 +27,8 @@ class Game {
     }
 
     init() {
+        this.frame = 0;
+        this.points = 0;
         this.spreadSheet = new SpriteSheet('assets/images/runner.png', 8, 1);
         this.player = new Player();
         this.player.anim = new Animation(this.spreadSheet, this.ctx);
@@ -66,7 +70,12 @@ class Game {
         let animFrame = 0;
         const animation = () => {
             if (this.isGameRunning) {
+                this.frame++;
+                if(this.frame % 50 === 0){
+                    this.points++;
+                }
                 animFrame++;
+                this.drawPoints();
                 this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
                 this.bgAnim.draw();
                 this.player.update();
@@ -112,15 +121,31 @@ class Game {
 
 
             const btn = document.getElementById('gameOverButton');
+            const result = document.getElementById('result');
+            const score = document.getElementById('score');
+            score.style.visibility = 'hidden';
             btn.style.visibility = 'visible';
+            result.style.color = 'Red';
+            result.innerHTML = "Your score: " + this.points.toString();
+            result.style.visibility = 'visible';
 
             btn.addEventListener('click', () => {
+                score.style.visibility = 'visible';
                 btn.style.visibility = 'hidden';
+                result.style.visibility = 'hidden';
                 this.init();
             })
 
 
         }
+    }
+
+    drawPoints(){
+        const score= document.getElementById('score');
+        score.style.left = 0 + "px";
+        score.style.top = 0 + "px";
+        score.style.color = 'Red';
+        score.innerHTML = "Actual score: " + this.points.toString();
     }
 }
 
