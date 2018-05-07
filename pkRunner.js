@@ -154,8 +154,12 @@ class Game {
         if (this.player.y > this.canvas.height || bool ===true) {
             this.lifes--;
             if (this.lifes >= 0) {
+                this.sound = new Audio('./assets/sound/slip.mp3');
+                this.sound.play();
                 return this.init();
             }
+            this.sound = new Audio('./assets/sound/laugh.mp3');
+            this.sound.play();
             this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
             this.isGameRunning = false;
 
@@ -374,7 +378,7 @@ class Player extends Vectors {
             if(((playerLeft >= hearthLeft && playerRight <= hearthRight && playerRight >= hearthLeft)
             || (playerLeft <= hearthLeft && playerRight >= hearthRight ) ||
                 (playerLeft >= hearthLeft && playerLeft <= hearthRight && playerRight >= hearthRight))
-            && (playerBottom >= hearthTop && playerBottom <= hearthTop + 30 )){
+            && (playerBottom >= hearthTop && playerBottom <= hearthTop + 40 )){
                 this.sound = new Audio('./assets/sound/death.mp3');
                 this.sound.play();
                 hearths.splice(i,1);
