@@ -33,7 +33,6 @@ class Game {
         this.hearths = [];
         this.frame = 0;
         this.zombies = [];
-
         if (this.lifes === -1) {
             this.points = 0;
             this.lifes = 0;
@@ -375,15 +374,17 @@ class Player extends Vectors {
             const hearthRight = hearths[i].x + hearths[i].width;
             const  hearthTop = hearths[i].y;
             const  hearthBottom = hearths[i].y + hearths[i].height;
-            if(((playerLeft >= hearthLeft && playerRight <= hearthRight && playerRight >= hearthLeft)
+            if(((playerLeft >= hearthLeft && playerRight <= hearthRight && playerRight >= hearthLeft && playerLeft <= hearthRight)
             || (playerLeft <= hearthLeft && playerRight >= hearthRight ) ||
-                (playerLeft >= hearthLeft && playerLeft <= hearthRight && playerRight >= hearthRight))
-            && (playerBottom >= hearthTop && playerBottom <= hearthTop + 40 )){
+                (playerLeft >= hearthLeft && playerLeft <= hearthRight && playerRight >= hearthRight) && playerRight >= hearthLeft)
+            && (playerBottom >= hearthTop && playerBottom <= hearthTop + 30 )){
+                console.log("zombie kill");
                 this.sound = new Audio('./assets/sound/death.mp3');
                 this.sound.play();
                 hearths.splice(i,1);
             } else if(!(hearthLeft > playerRight || hearthRight < playerLeft ||
                 hearthTop > playerBottom || hearthBottom < playerTop)) {
+                console.log("zombie collision");
                 return true;
             }
         }
