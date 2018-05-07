@@ -21,7 +21,7 @@ class Game {
         this.background = new Image();
         this.background.src = './assets/images/background.png';
         this.background.onload = () => {
-            this.ctx.drawImage(this.background, 0, 0);
+            this.ctx.drawImage(this.background, this.canvas.width, this.canvas.height, this.canvas.width, this.canvas.height);
             this.anim();
         };
         this.init();
@@ -134,7 +134,6 @@ class Game {
             }
 
             if (hearthRandom % 10 === 0 && !hearthAdded  &&  !zombieAdded && i!==arrLeng) {
-                console.log('zombieSpawned');
                 zombieAdded = true;
                 this.zombies.push(new Zombie((this.gapeLength + i) * platformWidth + 32, platformBase - platformSpacer * (level + 1) + 25, '', this.player, this.ctx))
             }
@@ -368,13 +367,19 @@ class Player extends Vectors {
         const playerTop = this.y;
         const playerBottom = this.y + this.height;
         for (let i = 0; i < hearths.length; i++) {
-            const hearthLeft = hearths[i].x;
+            const  hearthLeft = hearths[i].x;
             const hearthRight = hearths[i].x + hearths[i].width;
-            const hearthTop = hearths[i].y;
-            const hearthBottom = hearths[i].y + hearths[i].height;
-            if (!(hearthLeft > playerRight || hearthRight < playerLeft ||
+            const  hearthTop = hearths[i].y;
+            const  hearthBottom = hearths[i].y + hearths[i].height;
+            if(((playerLeft >= hearthLeft && playerRight <= hearthRight && playerRight >= hearthLeft)
+            || (playerLeft <= hearthLeft && playerRight >= hearthRight ) ||
+                (playerLeft >= hearthLeft && playerLeft <= hearthRight && playerRight >= hearthRight))
+            && (playerBottom >= hearthTop && playerBottom <= hearthTop + 30 )){
+                this.sound = new Audio('./assets/sound/death.mp3');
+                this.sound.play();
+                hearths.splice(i,1);
+            } else if(!(hearthLeft > playerRight || hearthRight < playerLeft ||
                 hearthTop > playerBottom || hearthBottom < playerTop)) {
-                console.log('zombie');
                 return true;
             }
         }
@@ -389,6 +394,9 @@ class Player extends Vectors {
 }
 
 class Block extends Vectors {
+    advance() {
+        super.advance();
+    }
     constructor(x, y, type, relativePlayer, ctx) {
         super(x, y);
         this.width = platformWidth;
