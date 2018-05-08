@@ -5,13 +5,15 @@ body {
 
 button {
     position: fixed;
-    left: 50%;
-    top: 50%;
+    left: 45%;
+    top: 45%;
+    width: 10%;
+    height: 10%;
 }
 
 text {
     font-size: 50px;
     position: fixed;
-    left: 46%;
-    top: 40%;
+    left: 42%;
+    top: 35%;
 }

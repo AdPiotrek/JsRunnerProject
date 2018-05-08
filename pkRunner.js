@@ -21,7 +21,7 @@ class Game {
         this.background = new Image();
         this.background.src = './assets/images/background.png';
         this.background.onload = () => {
-            this.ctx.drawImage(this.background, 0, 0);
+            this.ctx.drawImage(this.background, this.canvas.width, this.canvas.height, this.canvas.width, this.canvas.height);
             this.anim();
         };
         this.init();
@@ -74,7 +74,7 @@ class Game {
             this.hearths[i].draw();
         }
 
-        for (let i = 0; i < this.zombies.length; i++) {
+        for(let i = 0; i< this.zombies.length; i++){
             this.zombies[i].update();
             this.zombies[i].draw();
         }
@@ -162,8 +162,12 @@ class Game {
         if (this.player.y > this.canvas.height || bool === true) {
             this.lifes--;
             if (this.lifes >= 0) {
+                this.sound = new Audio('./assets/sound/slip.mp3');
+                this.sound.play();
                 return this.init();
             }
+            this.sound = new Audio('./assets/sound/laugh.mp3');
+            this.sound.play();
             this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
             this.isGameRunning = false;
 
@@ -396,6 +400,9 @@ class Player extends Vectors {
 }
 
 class Block extends Vectors {
+    advance() {
+        super.advance();
+    }
     constructor(x, y, type, relativePlayer, ctx) {
         super(x, y);
         this.width = platformWidth;
