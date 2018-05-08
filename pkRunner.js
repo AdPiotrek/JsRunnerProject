@@ -74,7 +74,7 @@ class Game {
             this.hearths[i].draw();
         }
 
-        for(let i = 0; i< this.zombies.length; i++){
+        for (let i = 0; i < this.zombies.length; i++) {
             this.zombies[i].update();
             this.zombies[i].draw();
         }
@@ -133,7 +133,14 @@ class Game {
                 this.hearths.push(new Hearth((this.gapeLength + i) * platformWidth + 32, platformBase - platformSpacer * (level + 1) + 25, '', this.player, this.ctx))
             }
 
-            if (hearthRandom % 10 === 0 && !hearthAdded  &&  !zombieAdded && i!==arrLeng) {
+            if (hearthRandom % 5 === 0 &&
+                !hearthAdded
+                && !zombieAdded
+                && i !== arrLeng
+                && this.platformLength > 3
+                && i !== arrLeng + this.platformLength -1
+            )
+            {
                 console.log('zombieSpawned');
                 zombieAdded = true;
                 this.zombies.push(new Zombie((this.gapeLength + i) * platformWidth + 32, platformBase - platformSpacer * (level + 1) + 25, '', this.player, this.ctx))
@@ -152,7 +159,7 @@ class Game {
     }
 
     gameOver(bool) {
-        if (this.player.y > this.canvas.height || bool ===true) {
+        if (this.player.y > this.canvas.height || bool === true) {
             this.lifes--;
             if (this.lifes >= 0) {
                 return this.init();
